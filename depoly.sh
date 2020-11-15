@@ -9,7 +9,7 @@ git init
 git add -A
 git commit -m 'deploy'
 # 部署到 git@github.com:LiaoYingKai/count-game.git 分支為 gh-pages
-git push -f git@github.com:LiaoYingKai/count-game.git master:gh-pages
+git push -f git@github.com:LiaoYingKai/counting-game.git master:gh-pages
 
 # 將 dist 資料夾中的內容推送至遠端 gh-pages 分支中，並強制無條件將舊有的內容取代成目前的內容（指令 git push -f)
 cd -
