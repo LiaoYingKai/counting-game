@@ -9,7 +9,7 @@ button {
   width: 350px;
   height: 58px;
   background-color: $black;
-  font-size: 36px;
+  @include fontSizeWeight(36px);
   color: $orange;
   text-align: center;
   border: none;

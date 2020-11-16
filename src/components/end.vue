@@ -28,23 +28,20 @@ export default defineComponent({
   @include flexCenter();
   flex-direction: column;
   &__sub-title {
-    font-weight: 600;
-    font-size: 30px;
+    @include fontSizeWeight(30px);
     border: 4px solid $white;
     padding: 4px 12px;
     color: $white;
   }
   &__final-score {
-    font-weight: 600;
-    font-size: 56px;
+    @include fontSizeWeight(56px);
     span {
       color: $white;
     }
   }
   &__score {
+    @include fontSizeWeight(112px);
     margin-bottom: 100px;
-    font-size: 112px;
-    font-weight: 600;
   }
 }
 </style>

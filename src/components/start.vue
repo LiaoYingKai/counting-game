@@ -31,19 +31,18 @@ export default defineComponent({
 .start {
   @include fullScreen();
   @include flexCenter();
-
   flex-direction: column;
+
   &__title {
     @include flexCenter();
-
     position: relative;
+
     > div {
       color: $white;
-      font-size: 44px;
+      @include fontSizeWeight(44px);
       position: absolute;
       right: -10px;
       top: 60px;
-      font-weight: 600;
       &::before,
       &::after {
         background-color: $white;
@@ -66,21 +65,19 @@ export default defineComponent({
       &:first-child {
         color: $white;
         text-shadow: 12px 0px 0px $black;
-        font-size: 240px;
         margin-right: 24px;
-        font-weight: 600;
+        @include fontSizeWeight(240px);
       }
       &:last-child {
-        font-weight: 600;
         line-height: 100px;
-        font-size: 96px;
+        @include fontSizeWeight(96px);
       }
     }
   }
   &__content {
     color: $white;
-    font-size: 24px;
     text-align: center;
+    @include fontSizeWeight(24px, 400);
   }
 }
 </style>
