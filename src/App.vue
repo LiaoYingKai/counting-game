@@ -52,11 +52,12 @@ html {
   margin: 0;
   background-color: $orange;
 }
+p {
+  margin: 0;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flexCenter();
   @include fullScreen();
 }
 
