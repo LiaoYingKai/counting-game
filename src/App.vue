@@ -35,7 +35,7 @@ export default defineComponent({
     };
     const { start, game, end } = StatusMap;
     const score = ref(0);
-    const nowStatus = ref(game);
+    const nowStatus = ref(start);
 
     function changeStatus(status) {
       nowStatus.value = status;
