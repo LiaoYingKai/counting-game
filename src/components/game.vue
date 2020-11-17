@@ -4,7 +4,7 @@
       <div class="game__sub-title">
         <p>60 SECONDS CHALLENGE</p>
         <div>SCORE</div>
-        <span> 001 </span>
+        <span> {{ formatQuestion(question) }} </span>
       </div>
       <div class="game__timer">{{ formatTime(lastTime) }}</div>
     </div>
@@ -22,6 +22,7 @@ import { defineComponent, ref } from "vue";
 export default defineComponent({
   props: {},
   setup(props, { emit }) {
+    const question = ref(1);
     const GameTime = 60;
     const lastTime = ref(GameTime);
     const Milliseconds = 1000;
@@ -38,13 +39,21 @@ export default defineComponent({
       return `${paddingZero(minutes)}:${paddingZero(seconds)}`;
     }
 
+    function formatQuestion(question) {
+      if (question >= 100) return question;
+      if (question >= 10) return `0${question}`;
+      return `00${question}`;
+    }
+
     function paddingZero(number) {
       return number > 10 ? number : `0${number}`;
     }
 
     return {
       formatTime,
-      lastTime
+      lastTime,
+      formatQuestion,
+      question
     };
   }
 });
