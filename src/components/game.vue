@@ -6,7 +6,7 @@
         <div>SCORE</div>
         <span> 001 </span>
       </div>
-      <div class="game__timer">00:59</div>
+      <div class="game__timer">{{ formatTime(lastTime) }}</div>
     </div>
     <div class="game__content">
       <span>121</span> x <span>122</span> =
@@ -18,10 +18,35 @@
   </div>
 </template>
 <script>
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 export default defineComponent({
   props: {},
-  setup() {}
+  setup(props, { emit }) {
+    const GameTime = 60;
+    const lastTime = ref(GameTime);
+    const Milliseconds = 1000;
+    const timer = setInterval(() => {
+      lastTime.value = lastTime.value - 1;
+      if (lastTime.value === 0) {
+        clearInterval(timer);
+        emit("on-game-over");
+      }
+    }, Milliseconds);
+    function formatTime(time) {
+      const minutes = Number.parseInt(time / 60);
+      const seconds = time % 60;
+      return `${paddingZero(minutes)}:${paddingZero(seconds)}`;
+    }
+
+    function paddingZero(number) {
+      return number > 10 ? number : `0${number}`;
+    }
+
+    return {
+      formatTime,
+      lastTime
+    };
+  }
 });
 </script>
 
