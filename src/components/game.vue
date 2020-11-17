@@ -75,6 +75,7 @@ export default defineComponent({
         emit("on-calculation", -1);
       }
       formula.value = randomFormula();
+      question.value = question.value + 1;
       this.$refs.input.value = "";
     }
 
