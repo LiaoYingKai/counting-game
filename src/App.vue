@@ -1,8 +1,16 @@
 <template>
   <section>
-    <Start v-show="nowStatus === start" @onStart="changeStatus(game)" />
-    <Game v-show="nowStatus === game" @onGameOver="changeStatus(end)" />
-    <End v-show="nowStatus === end" @onReset="changeStatus(start)" />
+    <Start v-if="nowStatus === start" @onStart="changeStatus(game)" />
+    <Game
+      v-if="nowStatus === game"
+      @onGameOver="changeStatus(end)"
+      @onCalculation="handleCalculation"
+    />
+    <End
+      v-if="nowStatus === end"
+      :score="formatScore(score)"
+      @onReset="changeStatus(start)"
+    />
   </section>
 </template>
 
@@ -26,11 +34,20 @@ export default defineComponent({
       end: "end"
     };
     const { start, game, end } = StatusMap;
-
-    const nowStatus = ref(start);
+    const score = ref(0);
+    const nowStatus = ref(game);
 
     function changeStatus(status) {
       nowStatus.value = status;
+    }
+
+    function handleCalculation(number) {
+      if (score.value < 0) return;
+      score.value = score.value + number;
+    }
+
+    function formatScore(score) {
+      return score > 0 ? score : 0;
     }
 
     return {
@@ -39,7 +56,10 @@ export default defineComponent({
       nowStatus,
       start,
       game,
-      end
+      end,
+      score,
+      handleCalculation,
+      formatScore
     };
   }
 });

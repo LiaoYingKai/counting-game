@@ -4,7 +4,7 @@
     <div class="end__final-score">
       <span>—</span> YOUR FINAL SCORE <span>—</span>
     </div>
-    <p class="end__score">74</p>
+    <p class="end__score">{{ score }}</p>
     <Button @onClick="$emit('on-reset')">
       TRY AGAIN!
     </Button>
@@ -17,8 +17,12 @@ export default defineComponent({
   components: {
     Button
   },
-  props: {},
-  setup() {}
+  props: {
+    score: {
+      type: Number,
+      default: 0
+    }
+  }
 });
 </script>
 

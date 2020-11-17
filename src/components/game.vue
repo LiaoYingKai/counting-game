@@ -9,9 +9,10 @@
       <div class="game__timer">{{ formatTime(lastTime) }}</div>
     </div>
     <div class="game__content">
-      <span>121</span> x <span>122</span> =
+      <span>{{ formula[0] }}</span> {{ formula[1]
+      }}<span>{{ formula[2] }}</span> =
       <div>
-        <input />
+        <input @keyup.enter="handleSubmit" ref="input" />
         <p>press enter to answer</p>
       </div>
     </div>
@@ -23,9 +24,11 @@ export default defineComponent({
   props: {},
   setup(props, { emit }) {
     const question = ref(1);
-    const GameTime = 60;
+    const GameTime = 10;
     const lastTime = ref(GameTime);
     const Milliseconds = 1000;
+    const formula = ref(randomFormula());
+
     const timer = setInterval(() => {
       lastTime.value = lastTime.value - 1;
       if (lastTime.value === 0) {
@@ -33,6 +36,7 @@ export default defineComponent({
         emit("on-game-over");
       }
     }, Milliseconds);
+
     function formatTime(time) {
       const minutes = Number.parseInt(time / 60);
       const seconds = time % 60;
@@ -45,15 +49,42 @@ export default defineComponent({
       return `00${question}`;
     }
 
+    function randomNumber(max = 10) {
+      return Math.floor(Math.random() * Math.floor(max));
+    }
+
+    function randomSymbol() {
+      const symbols = ["+", "-", "*", "/"];
+      return symbols[randomNumber(4)];
+    }
+
+    function randomFormula() {
+      return [randomNumber(10), randomSymbol(), randomNumber(10)];
+    }
+
     function paddingZero(number) {
-      return number > 10 ? number : `0${number}`;
+      return number >= 10 ? number : `0${number}`;
+    }
+
+    function handleSubmit(event) {
+      const inputValue = event.target.value;
+      const answer = eval(formula.value.join(""));
+      if (answer == inputValue) {
+        emit("on-calculation", 5);
+      } else {
+        emit("on-calculation", -1);
+      }
+      formula.value = randomFormula();
+      this.$refs.input.value = "";
     }
 
     return {
       formatTime,
       lastTime,
       formatQuestion,
-      question
+      question,
+      formula,
+      handleSubmit
     };
   }
 });
